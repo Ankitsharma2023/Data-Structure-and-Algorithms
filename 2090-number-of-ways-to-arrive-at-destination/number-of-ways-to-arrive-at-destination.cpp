@@ -30,6 +30,8 @@ public:
             int node = pq.top().second;
 
             pq.pop();
+            // JUST AN OPTIMISATION 
+             if (currtime > result[node]) continue; 
 
             for (auto it : adj[node]) {
                 int next = it.first;
