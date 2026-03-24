@@ -1,36 +1,37 @@
 class Solution {
 public:
     int beautySum(string s) {
-
-        int n = s.size();
-        int ans = 0 ;
-
-//normal using 2 loop for calculating all substring 
-
-        for(int i =0 ; i<n; i++)
+        
+        int n =s.size();
+        int cnt = 0;
+//substring using tradational 2 loop
+        for(int i =0;i<n;i++)
         {
-            //count array, for each iteration it reset
-            int count[26] = {0};
+            vector<int>arr(26,0);
 
-            for(int j = i ; j < n ; j++)
+            for(int j= i;j<n;j++)
             {
-                int mn = INT_MAX;
-                int mx = INT_MIN;
-                count[s[j] - 'a']++;
-            
+                
+                int maxe = INT_MIN;
+                int mini = INT_MAX;
 
-            for(auto x : count)
-            {
-                if(x!=0)
+                arr[s[j]-'a']++;
+
+                // vector bn gya 
+                for(auto x: arr)
                 {
-                    mn = min(x,mn);
-                    mx = max(x,mx);
+                    if(x!=0)
+                    {
+                    maxe = max(maxe,x);
+                    mini = min(mini,x); 
+                    }
                 }
-            }
 
-            ans += mx-mn;
+                cnt += maxe-mini;
             }
+    
         }
-        return ans;
+
+        return cnt;
     }
 };
