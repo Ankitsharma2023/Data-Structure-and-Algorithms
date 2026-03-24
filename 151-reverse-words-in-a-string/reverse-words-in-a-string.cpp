@@ -1,27 +1,34 @@
 class Solution {
 public:
-
     string reverseWords(string s) {
         
-        stringstream ss(s); // ss is not keyword 
-        string word;
-        vector<string> arr;
-
-
-        while (ss >> word) { // similar to cin>>word
-            arr.push_back(word);
+        int n =s.size();
+        stringstream ss(s);
+        string word; //individual unit 
+        
+        vector<string>result;
+        while(ss>>word)
+        {
+            result.push_back(word);
         }
 
-        // reverse words
-        reverse(arr.begin(), arr.end());
+        reverse(result.begin(),result.end());
 
-        // build result
-        string result = "";
-        for (int i = 0; i < arr.size(); i++) {
-            result += arr[i];
-            if (i != arr.size() - 1) result += " "; //we dont want last word to have a trailing/leading zero
+        string final = "";
+        
+       for(int i =0;i<result.size();i++)
+       {
+        if(i!=result.size()-1)
+        {
+            final+=result[i];
+            final+=" ";
         }
+        else
+        {
+            final+=result[i];
+        }
+       }
 
-        return result;
+       return final;
     }
 };
