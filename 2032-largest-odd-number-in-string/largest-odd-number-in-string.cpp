@@ -1,16 +1,18 @@
 class Solution {
 public:
     string largestOddNumber(string num) {
-
-        int i =num.size()-1;
-
-        while(i>=0 && (num[i]-'0')%2==0) //even
+        
+        int n = num.size();
+        string ans ="";
+        for(int i = n-1;i>=0;i--)
         {
-            i--;
+            if((num[i]-'0')%2==1)// odd
+            {
+                return num.substr(0,i+1);
+            }
         }
-        // after this we pointed at odd position
-        //  if(i < 0) return "";
 
-       return num.substr(0,i+1); // i+1 not included
+        return "";
+
     }
 };
