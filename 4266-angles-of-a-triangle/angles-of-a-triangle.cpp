@@ -3,10 +3,6 @@ public:
 
     double angle(double x, double y, double z) {
         double val = (y*y + z*z - x*x) / (2*y*z);
-        
-        // avoid floating error
-        // val = max(-1.0, min(1.0, val));
-        
         return acos(val) * 180.0 / M_PI;
     }
 
