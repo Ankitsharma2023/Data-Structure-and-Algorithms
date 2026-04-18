@@ -1,14 +1,11 @@
 class Solution {
 public:
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst,
+    int findCheapestPrice(int n, vector<vector<int>>& edges, int src, int dst,
                           int k) {
-        // make input in adjacency list
-        // i will use bfs traversal,i will add cost, k , post in queue
-        // then when i got pos == dst , then the associated cost i will store as
-        // answer and keep moving , and my limit is k should be upto
-        // k+1(including dest)
+
         vector<vector<pair<int, int>>> adj(n);
-        for (auto& e : flights) {
+
+        for (auto& e : edges) {
             int u = e[0];
             int v = e[1];
             int w = e[2];
@@ -16,19 +13,21 @@ public:
             adj[u].push_back({v, w});
         }
 
-        queue<pair<int, pair<int, int>>> q;
-        q.push({0, {0, src}});
-        int result = INT_MAX;
-
         vector<int> dist(n, INT_MAX);
         dist[src] = 0;
-        while (!q.empty()) {
-            auto curr = q.front();
-            int cost = curr.first;
-            int stops = curr.second.first;
-            int node = curr.second.second;
-            q.pop();
-            if (stops > k + 1)
+           int result = INT_MAX;
+
+         
+        queue<pair<int, pair<int, int>>> pq;
+        pq.push({0, {src, 0}}); // distance,node,k
+
+        while (!pq.empty()) {
+            int cost = pq.front().first;
+            int node = pq.front().second.first;
+            int step = pq.front().second.second;
+            pq.pop();
+            
+         if (step > k + 1)
                 continue;
 
             if (node == dst) {
@@ -36,18 +35,19 @@ public:
                 continue;
             }
 
-            for (auto it : adj[node]) {
-                int next = it.first;
-                int wt = it.second;
+            for(auto it : adj[node])
+            {
+               int next = it.first;
+               int wt =it.second;
 
-                int newcost = cost + wt;
-
-                if (newcost < dist[next]) {
-                    dist[next] = newcost;
-                    q.push({newcost, {stops + 1, next}});
+                if( cost + wt < dist[next] )
+                {
+                    dist[next] = cost + wt;
+                    pq.push({dist[next],{next,step+1}});
                 }
             }
         }
 
-        return result == INT_MAX ? -1 : result;    }
+           return result == INT_MAX ? -1 : result; 
+    }
 };
