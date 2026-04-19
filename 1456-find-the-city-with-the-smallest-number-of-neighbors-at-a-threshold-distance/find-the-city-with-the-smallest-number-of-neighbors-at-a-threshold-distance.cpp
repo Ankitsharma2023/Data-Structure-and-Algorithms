@@ -9,6 +9,8 @@ public:
            matrix[it[0]][it[1]] = it[2];
             matrix[it[1]][it[0]] = it[2];
         }
+
+        //making self as 0
         for(int i =0;i<n;i++) matrix[i][i] =0;
 
         for(int k =0;k<n;k++)
@@ -34,7 +36,7 @@ public:
         {//adjacent city,col
         if(matrix[i][j]<=distanceThreshold) cnt++;
         }
-        if(cnt <= cntcity) 
+        if(cnt <= cntcity) //go for smallest value possible
         {
             cntcity = cnt;
             cityno = i;
