@@ -1,4 +1,4 @@
-//simply take 2 stack and push the left and right of node, after that push that node into stack 2
+// simply take 2 stack and push the left and right of node, after that push that node into stack 2
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
@@ -6,6 +6,7 @@ public:
         if(root==nullptr) return {};
          s1.push(root);
          vector<int>ans;
+
         while(!s1.empty())
         {
             TreeNode*node = s1.top();
