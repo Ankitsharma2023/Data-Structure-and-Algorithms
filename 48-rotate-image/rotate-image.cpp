@@ -7,8 +7,8 @@ public:
         int m = matrix[0].size();
         for(int i = 0 ; i<n;i++)
         {
-            for(int j =i;j<m;j++)
-            {
+            for(int j =i;j<m;j++) //pay attention here 
+            { 
                 swap(matrix[i][j],matrix[j][i]);
             }
         }
