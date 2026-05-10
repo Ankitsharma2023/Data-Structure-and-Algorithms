@@ -5,9 +5,8 @@ public:
         string s = "";
 
         for (string &x : chunks) {
-            s += x;
+            s += x; // hello world hello 
         }
-
         unordered_map<string, int> mp;
 
         string cur = "";
@@ -15,14 +14,14 @@ public:
         int n = s.size();
 
         // Step 2: traverse string
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { 
 
             char ch = s[i];
 
             // CASE 1: normal letter
             if (ch >= 'a' && ch <= 'z') {
-                cur += ch;
-            }
+                cur += ch; 
+            } 
 
             // CASE 2: hyphen
             else if (ch == '-') {
@@ -43,7 +42,7 @@ public:
                 }
             }
 
-            // CASE 3: separator like space
+            // CASE 3: separator like space,
             else {
                 if (!cur.empty()) {
                     mp[cur]++;
@@ -51,6 +50,8 @@ public:
                 }
             }
         }
+
+
 
         // last word remaining
         if (!cur.empty()) {
@@ -64,6 +65,11 @@ public:
             ans.push_back(mp[q]);
         }
 
+
         return ans;
     }
 };
+
+
+
+
