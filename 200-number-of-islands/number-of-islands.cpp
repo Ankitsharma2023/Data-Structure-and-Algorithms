@@ -5,47 +5,48 @@ public:
         int n = grid.size();
         int m = grid[0].size();
 
-        vector<vector<int>> vis(n, vector<int>(m, 0));
-        int count = 0;
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        int cnt = 0;
 
-        int delRow[4] = {-1, 0, 1, 0};
-        int delCol[4] = {0, 1, 0, -1};
+        int drow[4] = {-1,0,1,0} ;
+        int dcol[4] = {0,1,0,-1};
 
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
+        for(int i =0;i<n;i++)
+        {
+            for(int j =0;j<m;j++)
+            {
+                if(grid[i][j]=='1' && !vis[i][j])
+                {
+                    cnt++;
+                    vis[i][j] =1;
 
-                if(grid[i][j] == '1' && !vis[i][j]) {
+                       queue<pair<int,int>>q;
+                       q.push({i,j});
 
-                    count++;  // new island found
-                    queue<pair<int,int>> q;
-                    q.push({i, j});
-                    vis[i][j] = 1;
+                       while(!q.empty())
+                       {
+                    auto[row,col] = q.front();
+                    q.pop();
 
-                    // BFS
-                    while(!q.empty()) {
+                    for(int k=0;k<4;k++)
+                    {
+                        int nrow = row+drow[k];
+                        int ncol = col +dcol[k];
+                       
+                       if(nrow>=0 && nrow < n && ncol >=0 && ncol<m && !vis[nrow][ncol] && grid[nrow][ncol]=='1')
+                       {
+                        q.push({nrow,ncol});
+                        vis[nrow][ncol]=1;
+                       }
 
-                        auto [row, col] = q.front();
-                        q.pop();
 
-                        for(int k = 0; k < 4; k++) {
-
-                            int nrow = row + delRow[k];
-                            int ncol = col + delCol[k];
-
-                            if(nrow >= 0 && nrow < n &&
-                               ncol >= 0 && ncol < m &&
-                               !vis[nrow][ncol] &&
-                               grid[nrow][ncol] == '1') {
-
-                                vis[nrow][ncol] = 1;
-                                q.push({nrow, ncol});
-                            }
-                        }
                     }
+                       }
                 }
             }
         }
 
-        return count;
+
+        return cnt;
     }
 };
