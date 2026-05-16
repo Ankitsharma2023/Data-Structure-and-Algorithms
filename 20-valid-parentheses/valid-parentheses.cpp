@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool isValid(string s) {
-        std:: stack<char>st;
+         stack<char>st;
 
         for(char ch : s)
         {
