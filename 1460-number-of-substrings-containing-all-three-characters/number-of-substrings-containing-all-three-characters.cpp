@@ -13,7 +13,7 @@ public:
 
             freq[s[right] - 'a']++;
 
-            // window contains a,b,c
+    
             while(freq[0] > 0 &&
                   freq[1] > 0 &&
                   freq[2] > 0) {
