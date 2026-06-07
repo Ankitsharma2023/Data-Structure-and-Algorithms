@@ -1,54 +1,35 @@
+
 class Solution {
 public:
+    using ll = long long;
+
     long long maxTotal(vector<int>& nums, string s) {
-        int n = nums.size();
+        int n = s.length();
 
-        const long long NEG = -1e18;
+        ll sum = 0;
+        ll minm = 1e9;
+        ll ans = 0;
 
-        vector<long long> dp(2, NEG), ndp(2, NEG);
+        for (int i = n - 1; i >= 0; --i) {
+            if (s[i] == '1') {
+                sum += nums[i];
+                minm = min(minm, 1LL * nums[i]);
+            } else {
+                if (minm != 1e9) {
+                    sum += nums[i];
+                    minm = min(minm, 1LL * nums[i]);
 
-        int x0 = (s[0] == '1') ? 1 : 0;   // token at 0 cannot move
-        dp[x0] = 0;
-
-        for (int i = 0; i < n - 1; i++) {
-            fill(ndp.begin(), ndp.end(), NEG);
-
-            for (int xi = 0; xi <= 1; xi++) {
-                if (dp[xi] == NEG) continue;
-
-                vector<int> choices;
-                if (s[i + 1] == '1')
-                    choices = {0, 1};
-                else
-                    choices = {0};
-
-                for (int xnext : choices) {
-                    bool covered =
-                        ((s[i] == '1') && xi == 1) ||
-                        ((s[i + 1] == '1') && xnext == 0);
-
-                    long long gain = covered ? nums[i] : 0;
-
-                    ndp[xnext] =
-                        max(ndp[xnext], dp[xi] + gain);
+                    sum -= minm;
+                    ans += sum;
                 }
+
+                minm = 1e9;
+                sum = 0;
             }
-
-            dp.swap(ndp);
         }
 
-        long long ans = 0;
-
-        for (int lastState = 0; lastState <= 1; lastState++) {
-            if (dp[lastState] == NEG) continue;
-
-            long long cur = dp[lastState];
-
-            if (s[n - 1] == '1' && lastState == 1)
-                cur += nums[n - 1];
-
-            ans = max(ans, cur);
-        }
+        if (sum != 0)
+            ans += sum;
 
         return ans;
     }
