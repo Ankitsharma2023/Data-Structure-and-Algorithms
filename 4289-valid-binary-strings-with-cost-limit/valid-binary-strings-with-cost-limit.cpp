@@ -13,7 +13,7 @@ public:
             
             for(int i =n-1;i>=0;i--) // n= 3 -> i = 2,1,0
             {
-                if(num & (1<<i)) // non zero bit is on , else off. hmm isme num ko = 101 , i =2,i=1,i= 0 //to i=2 ,0 on hoga 
+                if(num & (1<<i)) // non zero bit is on , else off. hmm isme num ko = 101 , i =2,i=1,i= 0 //to i=2 ,0 on hoga ,left shift
                 {
                     s+='1';
                 }
