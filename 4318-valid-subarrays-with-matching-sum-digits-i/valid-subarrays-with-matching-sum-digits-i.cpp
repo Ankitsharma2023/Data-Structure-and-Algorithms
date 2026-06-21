@@ -5,6 +5,7 @@ public:
         int n = nums.size();
 
         int ans = 0;
+        //building up subarrays
         for(int i =0;i<n;i++)
         {
             long long sum =0;
