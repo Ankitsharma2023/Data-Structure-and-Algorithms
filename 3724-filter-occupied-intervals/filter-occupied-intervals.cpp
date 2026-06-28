@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<vector<int>> filterOccupiedIntervals(vector<vector<int>>& occupiedIntervals,
+                                                int freeStart, int freeEnd) {
+        sort(occupiedIntervals.begin(), occupiedIntervals.end());
+
+        vector<vector<int>> merged;
+
+        // Merge overlapping or touching intervals
+        for (auto &it : occupiedIntervals) {
+            if (merged.empty() || 1LL * it[0] > merged.back()[1] + 1) {
+                merged.push_back(it);
+            } else {
+                merged.back()[1] = max(merged.back()[1], it[1]);
+            }
+        }
+
+        vector<vector<int>> ans;
+
+        // Remove the free interval
+        for (auto &it : merged) {
+            long long l = it[0], r = it[1];
+
+            // No overlap
+            if (r < freeStart || l > freeEnd) {
+                ans.push_back({(int)l, (int)r});
+                continue;
+            }
+
+            // Left part
+            if (l < freeStart) {
+                ans.push_back({(int)l, freeStart - 1});
+            }
+
+            // Right part
+            if (r > freeEnd) {
+                ans.push_back({freeEnd + 1, (int)r});
+            }
+        }
+
+        return ans;
+    }
+};
